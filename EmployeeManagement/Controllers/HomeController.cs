@@ -34,7 +34,7 @@ namespace EmployeeManagement.Controllers
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
                 Employee = _employeeList.GetEmployees().FirstOrDefault(x => x.Id == (id ?? 3)),
-                PageTitle = "Employee Details"
+                PageTitle = "Employee Details | By pass"
             };
 
             return View(homeDetailsViewModel);
