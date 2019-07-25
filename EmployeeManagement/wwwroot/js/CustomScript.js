@@ -1,3 +1,4 @@
-﻿window.document.onload(function () {
-    alert('hi');
+﻿
+$(function () {
+    $("._container").text("replaced by load");
 });
