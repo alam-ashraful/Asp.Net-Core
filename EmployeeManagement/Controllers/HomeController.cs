@@ -39,5 +39,15 @@ namespace EmployeeManagement.Controllers
 
             return View(homeDetailsViewModel);
         }
+
+        public ViewResult Edit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ViewResult Delete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

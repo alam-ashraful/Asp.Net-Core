@@ -43,7 +43,7 @@ namespace EmployeeManagement
             //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Home}/{action=GetAll}/{id?}");
                 //routes.MapRoute("cqa", "{controller}/{id?}/{action}");
             });
 
