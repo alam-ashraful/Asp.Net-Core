@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public interface IEmployeeList
+    public enum Dept
     {
-        IEnumerable<Employee> GetEmployees();
-        Employee Add(Employee employee);
+        CSE,
+        EEE,
+        BBA,
+        MMC
     }
 }

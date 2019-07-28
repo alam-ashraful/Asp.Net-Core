@@ -49,5 +49,25 @@ namespace EmployeeManagement.Controllers
         {
             throw new NotImplementedException();
         }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee newEmployee = _employeeList.Add(employee);
+                return RedirectToAction("Details", new { id = employee.Id });
+            }
+            else
+            {
+                return View("Create");
+            }
+        }
     }
 }
