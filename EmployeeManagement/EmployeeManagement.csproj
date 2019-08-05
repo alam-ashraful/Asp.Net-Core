@@ -16,4 +16,10 @@
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj" />
+    <ProjectReference Include="..\EmployeeManagement.Models\EmployeeManagement.Models.csproj" />
+    <ProjectReference Include="..\EmployeeManagement.Service.Infrastructures\EmployeeManagement.Service.Infrastructures.csproj" />
+  </ItemGroup>
+
 </Project>

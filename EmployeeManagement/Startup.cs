@@ -9,22 +9,29 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using EmployeeManagement.Models;
+using EmployeeManagement.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement
 {
     public class Startup
     {
-        //private IConfiguration _configuration;
+        private IConfiguration _configuration;
 
-        //public Startup(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //}
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<AppDbContext>
+                (options => options.UseSqlServer(
+                    _configuration.GetConnectionString("EmployeeDBConnection")
+                ));
+
             //services.AddMvcCore();
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();

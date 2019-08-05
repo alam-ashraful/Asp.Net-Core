@@ -13,7 +13,7 @@ namespace EmployeeManagement.Models
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        public Dept Department { get; set; }
-
+        [Required]
+        public Dept? Department { get; set; }
     }
 }

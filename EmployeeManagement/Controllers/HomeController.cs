@@ -62,12 +62,10 @@ namespace EmployeeManagement.Controllers
             if (ModelState.IsValid)
             {
                 Employee newEmployee = _employeeList.Add(employee);
-                return RedirectToAction("Details", new { id = employee.Id });
+                //return RedirectToAction("Details", new { id = newEmployee.Id });
             }
-            else
-            {
-                return View("Create");
-            }
+
+            return View("Create");
         }
     }
 }
