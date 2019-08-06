@@ -24,8 +24,8 @@
             </div>
             <div class="card-footer text-center">
                 <a asp-controller="Home" asp-action="getall" class="btn btn-primary">Back</a>
-                <a asp-controller="Home" asp-action="Edit" class="btn btn-primary">Edit</a>
-                <a asp-controller="Home" asp-action="Delete" class="btn btn-danger">Delete</a>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Employee.Id" class="btn btn-primary">Edit</a>
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Employee.Id" class="btn btn-danger">Delete</a>
 
             </div>
         </div>

@@ -40,14 +40,18 @@ namespace EmployeeManagement.Controllers
             return View(homeDetailsViewModel);
         }
 
-        public ViewResult Edit()
+        public ViewResult Edit(int id)
         {
-            throw new NotImplementedException();
+            return View(_employeeRepository.GetEmployee(id));
         }
 
-        public ViewResult Delete()
+        public IActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            if(_employeeRepository.Delete(id))
+            {
+                return RedirectToAction("GetAll");
+            }
+            return RedirectToAction("Create");
         }
 
         [HttpGet]
@@ -61,7 +65,7 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employee newEmployee = _employeeList.Add(employee);
+                Employee newEmployee = _employeeRepository.Add(employee);
                 //return RedirectToAction("Details", new { id = newEmployee.Id });
             }
 

@@ -26,6 +26,11 @@ namespace EmployeeManagement.Models
             return employee;
         }
 
+        public Boolean Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Employee GetEmployee(int id)
         {
             return _employeeList.FirstOrDefault(x => x.Id == id);
@@ -34,6 +39,11 @@ namespace EmployeeManagement.Models
         public IEnumerable<Employee> GetEmployees()
         {
             return _employeeList;
+        }
+
+        public Employee Update(Employee employee)
+        {
+            throw new NotImplementedException();
         }
     }
 }

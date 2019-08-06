@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using EmployeeManagement.Models;
 using EmployeeManagement.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using EmployeeManagement.Service.Infrastructures;
 
 namespace EmployeeManagement
 {
@@ -34,8 +35,8 @@ namespace EmployeeManagement
 
             //services.AddMvcCore();
             services.AddMvc().AddXmlSerializerFormatters();
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
-            services.AddSingleton<IEmployeeList, MockEmployeeRepository>();
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
+            services.AddScoped<IEmployeeList, SQLEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

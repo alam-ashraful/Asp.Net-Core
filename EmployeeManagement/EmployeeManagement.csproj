@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj" />
-    <ProjectReference Include="..\EmployeeManagement.Models\EmployeeManagement.Models.csproj" />
     <ProjectReference Include="..\EmployeeManagement.Service.Infrastructures\EmployeeManagement.Service.Infrastructures.csproj" />
+    <ProjectReference Include="..\EmployeeManagement.Service.Interfaces\EmployeeManagement.Service.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
