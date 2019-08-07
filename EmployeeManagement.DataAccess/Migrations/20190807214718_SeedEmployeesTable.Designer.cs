@@ -3,14 +3,16 @@ using EmployeeManagement.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeManagement.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190807214718_SeedEmployeesTable")]
+    partial class SeedEmployeesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +44,8 @@ namespace EmployeeManagement.DataAccess.Migrations
                         {
                             Id = 1,
                             Department = 3,
-                            Email = "4vcgM@on.in",
-                            Name = "A1xFcDM"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Department = 2,
-                            Email = "4vcgMe@on.in",
-                            Name = "A1xFcDMe"
+                            Email = "4vcg@on.in",
+                            Name = "A1xFcD"
                         });
                 });
 #pragma warning restore 612, 618
