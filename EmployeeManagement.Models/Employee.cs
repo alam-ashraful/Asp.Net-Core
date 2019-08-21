@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace EmployeeManagement.Models
         public string Email { get; set; }
         [Required]
         public Dept? Department { get; set; }
-        public string PhotoPat { get; set; }
+        [DisplayName("Select your photo")]
+        public string PhotoPath { get; set; }
     }
 }

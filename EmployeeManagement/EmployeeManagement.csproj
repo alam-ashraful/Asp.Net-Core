@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj" />
     <ProjectReference Include="..\EmployeeManagement.Service.Infrastructures\EmployeeManagement.Service.Infrastructures.csproj" />
     <ProjectReference Include="..\EmployeeManagement.Service.Interfaces\EmployeeManagement.Service.Interfaces.csproj" />
