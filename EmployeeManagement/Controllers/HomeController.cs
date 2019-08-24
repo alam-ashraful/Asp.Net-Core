@@ -40,9 +40,17 @@ namespace EmployeeManagement.Controllers
             return View(homeDetailsViewModel);
         }
 
+        [HttpGet]
         public ViewResult Edit(int id)
         {
             return View(_employeeRepository.GetEmployee(id));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            _employeeRepository.Update(employee);
+            return RedirectToAction("Details", new { id = employee.Id });
         }
 
         public IActionResult Delete(int id)
