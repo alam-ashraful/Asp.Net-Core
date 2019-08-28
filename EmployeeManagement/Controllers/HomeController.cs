@@ -35,11 +35,11 @@ namespace EmployeeManagement.Controllers
             return View(_employeeList.GetEmployees());
         }
 
-        public ViewResult Details(int? id)
+        public ViewResult Details(int id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeList.GetEmployees().FirstOrDefault(x => x.Id == (id ?? 3)),
+                Employee = _employeeRepository.GetEmployee(id),
                 PageTitle = "Employee Details | By pass"
             };
 
@@ -49,12 +49,35 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public ViewResult Edit(int id)
         {
-            return View(_employeeRepository.GetEmployee(id));
+            Employee employee = _employeeRepository.GetEmployee(id);
+            EmployeeEditViewModel employeeEditViewModel = new EmployeeEditViewModel()
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Department = employee.Department,
+                Email = employee.Email,
+                ExistingPhotoPath = employee.PhotoPath
+            };
+
+            return View(employeeEditViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee employee)
+        public IActionResult Edit(EmployeeEditViewModel model)
         {
+            Employee employee = _employeeRepository.GetEmployee(model.Id);
+            employee.Name = model.Name;
+            employee.Email = model.Email;
+            employee.Department = model.Department;
+            if (model.Photo != null)
+            {
+                if (model.ExistingPhotoPath != null)
+                {
+                    System.IO.File.Delete(Path.Combine(_hostingEnvironment.WebRootPath, "images", model.ExistingPhotoPath));
+                }
+                employee.PhotoPath = ProcessUploadFile(model);
+            }
+
             _employeeRepository.Update(employee);
             return RedirectToAction("Details", new { id = employee.Id });
         }
@@ -79,17 +102,7 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uniqueFileName = null;
-                if (model.Photos != null && model.Photos.Count > 0)
-                {
-                    foreach (IFormFile photo in model.Photos)
-                    {
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
-                }
+                string uniqueFileName = ProcessUploadFile(model);
 
                 Employee newEmployee = new Employee()
                 {
@@ -104,6 +117,30 @@ namespace EmployeeManagement.Controllers
             }
 
             return View("Create");
+        }
+
+        private string ProcessUploadFile(EmployeeCreateViewModel model)
+        {
+            string uniqueFileName = null;
+            //if (model.Photos != null && model.Photos.Count > 0)
+            //{
+            //    foreach (IFormFile photo in model.Photos)
+            //    {
+            //        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+            //        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+            //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            //        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            //    }
+            //}
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return uniqueFileName;
         }
     }
 }

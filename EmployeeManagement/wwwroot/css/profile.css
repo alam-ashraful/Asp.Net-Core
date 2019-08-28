@@ -3,3 +3,8 @@
 .profile {
     max-height: 300px;
 }
+
+.imageThumbnail {
+    max-width: 300px;
+    max-height: 350px;
+}
