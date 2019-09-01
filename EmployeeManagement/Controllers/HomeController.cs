@@ -35,11 +35,17 @@ namespace EmployeeManagement.Controllers
             return View(_employeeList.GetEmployees());
         }
 
-        public ViewResult Details(int id)
+        public ViewResult Details(int? id)
         {
+            Employee employee = _employeeRepository.GetEmployee(id.Value);
+            if (employee == null)
+            {
+                return View("EmployeeNotFound", id.Value);
+            }
+
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(id),
+                Employee = employee,
                 PageTitle = "Employee Details | By pass"
             };
 
@@ -137,7 +143,10 @@ namespace EmployeeManagement.Controllers
                 string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Photo.CopyTo(fileStream);
+                }
             }
 
             return uniqueFileName;
