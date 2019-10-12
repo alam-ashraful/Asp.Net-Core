@@ -30,6 +30,7 @@ namespace EmployeeManagement.Controllers
             return View(_employeeRepository.GetEmployee(id ?? 3));
         }
 
+        [HttpGet]
         public ViewResult GetAll()
         {
             return View(_employeeList.GetEmployees());
