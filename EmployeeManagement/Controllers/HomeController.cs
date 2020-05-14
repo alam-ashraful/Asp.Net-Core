@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using cloudscribe.Pagination.Models;
+using System.Diagnostics;
 
 namespace EmployeeManagement.Controllers
 {
@@ -31,9 +33,23 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
-        public ViewResult GetAll()
+        public ViewResult GetAll(int pageNumber = 1, int pageSize = 3)
         {
-            return View(_employeeList.GetEmployees());
+            int ExcludeRecords = (pageSize * pageNumber) - pageSize;
+
+            var empList = _employeeList.GetEmployees(true)
+                .Skip(ExcludeRecords)
+                .Take(pageSize);
+            
+            var result = new PagedResult<Employee>
+            {
+                Data = empList.ToList(),
+                TotalItems = _employeeList.GetEmployees().Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return View(result);
         }
 
         public ViewResult Details(int? id)

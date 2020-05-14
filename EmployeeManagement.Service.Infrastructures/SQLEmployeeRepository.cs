@@ -1,7 +1,9 @@
 ﻿using EmployeeManagement.DataAccess;
 using EmployeeManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EmployeeManagement.Service.Infrastructures
@@ -42,9 +44,12 @@ namespace EmployeeManagement.Service.Infrastructures
             return _appDbContext.Employees.Find(id);
         }
 
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<Employee> GetEmployees(bool antrac = false)
         {
-            return _appDbContext.Employees;
+            if (antrac)
+                return _appDbContext.Employees.AsNoTracking();
+            else
+                return _appDbContext.Employees;
         }
 
         public Employee Update(Employee employeeChanges)

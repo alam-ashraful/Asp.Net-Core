@@ -7,6 +7,5 @@ namespace EmployeeManagement.Models
 {
     public interface IEmployeeList
     {
-        IEnumerable<Employee> GetEmployees();
-    }
+        IEnumerable<Employee> GetEmployees(bool antrac = false);    }
 }
