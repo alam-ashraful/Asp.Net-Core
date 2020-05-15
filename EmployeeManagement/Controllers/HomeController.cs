@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
 using System.Diagnostics;
+using Nancy.Json;
+using Microsoft.Web.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
@@ -50,6 +52,27 @@ namespace EmployeeManagement.Controllers
             };
 
             return View(result);
+        }
+
+        [HttpGet]
+        [Route("[controller]/api/getall")]
+        public JsonResult GetAllByApi(int pageNumber = 1, int pageSize = 3)
+        {
+            int ExcludeRecords = (pageSize * pageNumber) - pageSize;
+
+            var empList = _employeeList.GetEmployees(true)
+                .Skip(ExcludeRecords)
+                .Take(pageSize);
+
+            var result = new PagedResult<Employee>
+            {
+                Data = empList.ToList(),
+                TotalItems = _employeeList.GetEmployees().Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return Json(result);
         }
 
         public ViewResult Details(int? id)

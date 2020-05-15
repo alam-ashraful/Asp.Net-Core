@@ -10,9 +10,11 @@
   <ItemGroup>
     <PackageReference Include="cloudscribe.Pagination.Models" Version="1.0.5" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc.Futures" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
   </ItemGroup>
