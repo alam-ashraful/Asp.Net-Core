@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
 using System.Diagnostics;
 using Nancy.Json;
-using Microsoft.Web.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
