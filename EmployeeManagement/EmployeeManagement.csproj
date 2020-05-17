@@ -24,4 +24,8 @@
     <ProjectReference Include="..\EmployeeManagement.Service.Interfaces\EmployeeManagement.Service.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\images\" />
+  </ItemGroup>
+
 </Project>
