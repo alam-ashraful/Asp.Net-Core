@@ -42,23 +42,10 @@
 }
 
 @section Scripts{
-    <script>
+    <script type="text/javascript" src="~/js/LiveSearch.js"></script>
+    <script type="text/javascript">
         $(function () {
-            $("#searchValue").keyup(function () {
-                $.ajax({
-                    url: "/api/search/" + $(this).val(),
-                    contentType: "application/json",
-                    success: function (res) {
-                        $(".fun-result").remove();
-                        $.each(res, function (key, val) {
-                            $("div #searchValue").after("<a target='_blank' class='fun-result' href='/home/edit/" + val['id'] + "'>" + val['name'] + "</a>");
-                        });
-                    },
-                    error: function () {
-                        $(".fun-result").remove();
-                    }
-                });
-            });
+            ajaxLiveSearch("searchValue", "/api/search/", "application/json");
         });
     </script>
 }
