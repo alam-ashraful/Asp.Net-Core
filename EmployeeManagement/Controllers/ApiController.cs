@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 
 namespace EmployeeManagement.Controllers
 {
@@ -28,18 +29,19 @@ namespace EmployeeManagement.Controllers
 
         [Produces("application/json")]
         [HttpGet("search/{nm}")]
-        public async Task<IActionResult> Search(string nm, string em)
+        public IActionResult Search(string nm)
         {
             try
             {
                 var getResult = _employeeList.GetEmployees()
-                    .Where(x => x.Name.Contains(nm))
+                    .Where(x => x.Name.Contains(nm) || x.Email.Contains(nm))
                     .Select(p => new
                     {
-                        name = p.Name
+                        name = p.Name,
+                        email = p.Email,
+                        id = p.Id
                     })
                     .ToList();
-
                 return Ok(getResult);
             }
             catch
