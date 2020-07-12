@@ -12,6 +12,7 @@ using EmployeeManagement.Models;
 using EmployeeManagement.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagement.Service.Infrastructures;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagement
 {
@@ -34,6 +35,8 @@ namespace EmployeeManagement
                 ));
 
             //services.AddMvcCore();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IEmployeeList, SQLEmployeeRepository>();
@@ -57,6 +60,7 @@ namespace EmployeeManagement
 
             app.UseStaticFiles();
             //app.UseMvcWithDefaultRoute();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=GetAll}/{id?}");

@@ -16,11 +16,13 @@ namespace EmployeeManagement.Models
         [Required,
             MaxLength(50)]
         public string Name { get; set; }
-        [Required]
+        [Required, EmailAddress]
         public string Email { get; set; }
         [Required]
         public Dept? Department { get; set; }
         [DisplayName("Select your photo")]
         public string PhotoPath { get; set; }
+        [Required, DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

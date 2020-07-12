@@ -33,6 +33,9 @@ namespace EmployeeManagement.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<string>("Password")
+                        .IsRequired();
+
                     b.Property<string>("PhotoPath");
 
                     b.HasKey("Id");
@@ -45,14 +48,16 @@ namespace EmployeeManagement.DataAccess.Migrations
                             Id = 1,
                             Department = 3,
                             Email = "4vcgM@on.in",
-                            Name = "A1xFcDM"
+                            Name = "A1xFcDM",
+                            Password = ""
                         },
                         new
                         {
                             Id = 2,
                             Department = 2,
                             Email = "4vcgMe@on.in",
-                            Name = "A1xFcDMe"
+                            Name = "A1xFcDMe",
+                            Password = ""
                         });
                 });
 #pragma warning restore 612, 618

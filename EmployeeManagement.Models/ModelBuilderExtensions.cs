@@ -15,14 +15,16 @@ namespace EmployeeManagement.Models
                     Id = 1,
                     Name = "A1xFcDM",
                     Department = Dept.MMC,
-                    Email = "4vcgM@on.in"
+                    Email = "4vcgM@on.in",
+                    Password = ""
                 },
                 new Employee()
                 {
                     Id = 2,
                     Name = "A1xFcDMe",
                     Department = Dept.BBA,
-                    Email = "4vcgMe@on.in"
+                    Email = "4vcgMe@on.in",
+                    Password = ""
                 }
             );
         }
