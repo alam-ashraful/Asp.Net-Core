@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using T1.LinkedList;
 
 namespace T1
 {
@@ -17,8 +18,8 @@ namespace T1
             //A1.SetBalance(100000.3694);
 
             //Console.WriteLine("ID: {0}\nName: {1}\nBalance: {2:0.00}\n", A1.AccountId(), A1.GetName(), A1.GetBalance());
-            int[] userArry = { 1, 5, 8, 56, 6, 88, 889 };
-            int[] userArry1 = { 2, 5, 4, 50, 4, 85, 80, 889 };
+            //int[] userArry = { 1, 5, 8, 56, 6, 88, 889 };
+            //int[] userArry1 = { 2, 5, 4, 50, 4, 85, 80, 889 };
 
             //Console.WriteLine("Found element at {0}", Search.FindElementAt(userArry, 56));
             //Console.WriteLine("Found element at {0}", Search.BinarySearch(userArry, 0, userArry.Length, 85));
@@ -27,16 +28,23 @@ namespace T1
 
             //Search.SelectionSort(userArry1, userArry1.Length);
 
-            int n = 25489;
-            int sum = 0;
-            while (n != 0)
-            {
-                sum += n % 10;
-                n /= 10;
-            }
+            //int n = 25489;
+            //int sum = 0;
+            //while (n != 0)
+            //{
+            //    sum += n % 10;
+            //    n /= 10;
+            //}
 
-            Console.WriteLine("Sum of the digits of the said integer: " + sum);
+            //Console.WriteLine("Sum of the digits of the said integer: " + sum);
 
+            MyList node = new MyList();
+
+            node.AddSorted(4);
+            node.AddSorted(6);
+            node.AddSorted(1);
+
+            node.Print();
         }
     }
 }

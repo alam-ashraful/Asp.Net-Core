@@ -51,6 +51,7 @@
     <Compile Include="IAccId.cs" />
     <Compile Include="IBalance.cs" />
     <Compile Include="IName.cs" />
+    <Compile Include="LinkedList\LinkedList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search.cs" />
