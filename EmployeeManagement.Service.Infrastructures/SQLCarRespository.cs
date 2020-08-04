@@ -1,13 +1,14 @@
 ﻿using EmployeeManagement.DataAccess;
 using EmployeeManagement.Models;
 using EmployeeManagement.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EmployeeManagement.Service.Infrastructures
 {
-    public class SQLCarRespository : ICar<Car>
+    public class SQLCarRespository : ICar
     {
         private readonly AppDbContext _appDbContext;
         public SQLCarRespository(AppDbContext appDbContext)
@@ -17,7 +18,7 @@ namespace EmployeeManagement.Service.Infrastructures
 
         public Car Add(Car obj)
         {
-            if(obj !=null)
+            if (obj != null)
             {
                 _appDbContext.Cars.Add(obj);
                 _appDbContext.SaveChanges();
@@ -33,12 +34,15 @@ namespace EmployeeManagement.Service.Infrastructures
 
         public Car GetCar(int id)
         {
-            throw new NotImplementedException();
+            return _appDbContext.Cars.Find(id);
         }
 
         public IEnumerable<Car> GetCars(bool antrac = false)
         {
-            throw new NotImplementedException();
+            if (antrac)
+                return _appDbContext.Cars.AsNoTracking();
+            else
+                return _appDbContext.Cars;
         }
 
         public Car Update(Car obj)

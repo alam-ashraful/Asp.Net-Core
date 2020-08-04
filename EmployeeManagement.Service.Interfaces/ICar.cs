@@ -1,16 +1,17 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.Service.Interfaces.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EmployeeManagement.Service.Interfaces
 {
-    public interface ICar<T>
+    public interface ICar
     {
-        IEnumerable<T> GetCars(bool antrac = false);
-        T GetCar(int id);
-        T Add(T obj);
+        IEnumerable<Car> GetCars(bool antrac = false);
+        Car GetCar(int id);
+        Car Add(Car obj);
         Boolean Delete(int id);
-        T Update(T obj);
+        Car Update(Car obj);
     }
 }

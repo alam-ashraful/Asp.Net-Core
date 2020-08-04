@@ -2,87 +2,92 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using cloudscribe.Pagination.Models;
 //using System.Web.Helpers;
 using EmployeeManagement.Models;
+using EmployeeManagement.Service.Interfaces;
+using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
     public class CarController : Controller
     {
-        public IActionResult Index()
+        private readonly ICar _car;
+        public CarController(ICar car)
         {
-            List<Car> cars = new List<Car>()
+            _car = car;
+        }
+
+        [HttpGet]
+        public IActionResult Index(int pageNumber = 1, int pageSize = 3)
+        {
+            int ExcludeRecords = (pageSize * pageNumber) - pageSize;
+
+            var empList = _car.GetCars(true)
+                .Skip(ExcludeRecords)
+                .Take(pageSize);
+
+            var result = new PagedResult<Car>
             {
-                new Car()
-                {
-                    Id = 1,
-                    Manufacturer = "BMW",
-                    Model = "Isetta",
-                    Year = "1955",
-                    ProducingCountry = "Germany"
-                },
-                new Car()
-                {
-                    Id = 2,
-                    Manufacturer = "Kia",
-                    Model = "Picanto",
-                    Year = "2004",
-                    ProducingCountry = "South Korea"
-                }
+                Data = empList.ToList(),
+                TotalItems = _car.GetCars().Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize
             };
 
-            return View(cars);
+            return View(result);
+        }
+
+        [HttpGet]
+        public ViewResult Details(int? id)
+        {
+            Car car = _car.GetCar(id.Value);
+
+            if (car == null)
+            {
+                return View("EmployeeNotFound", id.Value);
+            }
+
+            CarViewModel carViewModel = new CarViewModel()
+            {
+                Car = car,
+                PageTitle = "Car View"
+            };
+
+            return View(carViewModel);
+        }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Car obj)
+        {
+            if (ModelState.IsValid)
+            {
+                Car car = new Car()
+                {
+                    Manufacturer = obj.Manufacturer,
+                    Model = obj.Model,
+                    Year = obj.Year,
+                    ProducingCountry = obj.ProducingCountry
+                };
+
+                _car.Add(car);
+                return RedirectToAction("Details", new { id = car.Id });
+            }
+
+            return View("Create");
         }
 
         [HttpGet]
         public JsonResult CarManufacturer()
         {
-            List<Car> cars = new List<Car>()
-            {
-                new Car()
-                {
-                    Id = 1,
-                    Manufacturer = "BMW",
-                    Model = "Isetta",
-                    Year = "1955",
-                    ProducingCountry = "Germany"
-                },
-                new Car()
-                {
-                    Id = 2,
-                    Manufacturer = "Kia",
-                    Model = "Picanto",
-                    Year = "2004",
-                    ProducingCountry = "South Korea"
-                },
-                new Car()
-                {
-                    Id = 3,
-                    Manufacturer = "Kouhei",
-                    Model = "Picanto",
-                    Year = "1001",
-                    ProducingCountry = "Russia"
-                },
-                new Car()
-                {
-                    Id = 4,
-                    Manufacturer = "Yamaha",
-                    Model = "XR2",
-                    Year = "2015",
-                    ProducingCountry = "Japan"
-                },
-                new Car()
-                {
-                    Id = 5,
-                    Manufacturer = "Yamaha",
-                    Model = "XR2",
-                    Year = "2005",
-                    ProducingCountry = "Japan"
-                }
-            };
-
-            return Json(cars);
+            return Json(_car.GetCars());
         }
     }
 }

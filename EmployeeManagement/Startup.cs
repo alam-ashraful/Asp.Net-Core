@@ -13,6 +13,7 @@ using EmployeeManagement.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagement.Service.Infrastructures;
 using Microsoft.AspNetCore.Identity;
+using EmployeeManagement.Service.Interfaces;
 
 namespace EmployeeManagement
 {
@@ -40,6 +41,7 @@ namespace EmployeeManagement
             services.AddMvc().AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IEmployeeList, SQLEmployeeRepository>();
+            services.AddScoped<ICar, SQLCarRespository>();
             services.AddCloudscribePagination();
             //services.AddRazorPages();
         }
