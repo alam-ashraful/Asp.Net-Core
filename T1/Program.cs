@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using T1.Currency;
 using T1.LinkedList;
+using T1.Sort;
 
 namespace T1
 {
-
     class Program : Account
     {
         static void Main(string[] args)
@@ -38,13 +35,66 @@ namespace T1
 
             //Console.WriteLine("Sum of the digits of the said integer: " + sum);
 
-            MyList node = new MyList();
+            //List<MyList> myLists = new List<MyList>()
+            //{
+            //    new MyList(),
+            //    new MyList()
+            //};
 
-            node.AddSorted(4);
-            node.AddSorted(6);
-            node.AddSorted(1);
+            //myLists[0].AddSorted(9);
+            //myLists[0].AddSorted(6);
+            ////myLists[0].AddSorted(1);
+            //myLists[0].AddSorted(1);
 
-            node.Print();
+            //myLists[1].AddSorted(4);
+            //myLists[1].AddSorted(-9);
+            //myLists[1].AddSorted(-30);
+
+            MyList myList1 = new MyList();
+            MyList myList2 = new MyList();
+
+            myList1.AddSorted(9);
+            myList1.AddSorted(-61);
+            myList1.AddSorted(1);
+            myList1.AddSorted(100);
+
+            myList2.AddSorted(4);
+            myList2.AddSorted(-9);
+            myList2.AddSorted(30);
+
+            //Node rs = SortedMarge(myList1.headNode, myList2.headNode);
+            //rs.Print();
+
+            int[] a = new int[] { 61, 12, 33, 6, 4, 85 };
+            //string[] arrStr = new string[] { "BOB", "TOM", "ASH", "CASH" };
+
+            MargeSort2.sort<int>(a);
+            //MargeSort2.sort<string>(arrStr);
+
+            foreach (var item in a)
+            {
+                Console.Write($"->{item}");
+            }
+
+            //CurrencyConverter n = new CurrencyConverter();
+            //Console.WriteLine("You entered for: {0}", n.Convert(1));
+        }
+
+        public static Node SortedMarge(Node A, Node B)
+        {
+            if (A == null) return B;
+            if (B == null) return A;
+
+            if (A.data < B.data)
+            {
+                A.next = SortedMarge(A.next, B);
+                return A;
+            }
+            else
+            {
+                B.next = SortedMarge(A, B.next);
+                return B;
+            }
         }
     }
 }

@@ -48,13 +48,17 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Currency\CurrencyConverter.cs" />
     <Compile Include="IAccId.cs" />
     <Compile Include="IBalance.cs" />
     <Compile Include="IName.cs" />
     <Compile Include="LinkedList\LinkedList.cs" />
+    <Compile Include="LinkedList\LinkedList2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search.cs" />
+    <Compile Include="Sort\MargeSort.cs" />
+    <Compile Include="Sort\MargeSort2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

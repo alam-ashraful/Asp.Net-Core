@@ -13,6 +13,7 @@ namespace EmployeeManagement.DataAccess
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Car> Cars { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

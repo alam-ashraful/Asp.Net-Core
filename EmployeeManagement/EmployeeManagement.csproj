@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\AccountController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="cloudscribe.Pagination.Models" Version="1.0.5" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

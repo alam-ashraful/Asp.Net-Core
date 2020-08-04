@@ -41,7 +41,7 @@ namespace EmployeeManagement
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddScoped<IEmployeeList, SQLEmployeeRepository>();
             services.AddCloudscribePagination();
-            services.AddRazorPages();
+            //services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +64,7 @@ namespace EmployeeManagement
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=GetAll}/{id?}");
+                routes.MapRoute("default", "{controller=Car}/{action=Index}/{id?}");
                 //routes.MapRoute("cqa", "{controller}/{id?}/{action}");
             });
 
