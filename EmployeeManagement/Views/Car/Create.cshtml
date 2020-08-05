@@ -1,13 +1,12 @@
-﻿@model EmployeeManagement.Models.Car
+﻿@model Car
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Add a new</h1>
 
-<h4>Car</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,3 +43,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.csv-format').on("change", function () {
+                console.log($(this));
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}

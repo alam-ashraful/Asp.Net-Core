@@ -1,22 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
-//using System.Web.Helpers;
 using EmployeeManagement.Models;
 using EmployeeManagement.Service.Interfaces;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using EmployeeManagement.Service.Infrastructures;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EmployeeManagement.Controllers
 {
     public class CarController : Controller
     {
         private readonly ICar _car;
-        public CarController(ICar car)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public CarController(ICar car, IHostingEnvironment hostingEnvironment)
         {
             _car = car;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -127,6 +130,52 @@ namespace EmployeeManagement.Controllers
         public JsonResult CarManufacturer()
         {
             return Json(_car.GetCars());
-        }        
+        }
+
+        [HttpGet]
+        public IActionResult UploadViaCSV()
+        {
+            return View();
+        }
+
+        public IActionResult UploadViaCSV(CSVViewModel model)
+        {
+            try
+            {
+                var path = ProcessUploadFile(model);
+                var resultData = new CarService().ReadCSVFile(path);
+                foreach (var item in resultData)
+                {
+                    _car.Add(item);
+                }
+                return RedirectToAction("index");
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("Error", "Error", new { });
+            }
+        }
+
+        private string ProcessUploadFile(CSVViewModel filePath)
+        {
+            string uniqueFileName = null;
+
+            if (filePath.filePath != null)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "csv");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + filePath.filePath.FileName;
+
+                string filePath2 = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath2, FileMode.Create))
+                {
+                    filePath.filePath.CopyTo(fileStream);
+                }
+
+                uniqueFileName = filePath2;
+            }
+
+            return uniqueFileName;
+        }
     }
 }

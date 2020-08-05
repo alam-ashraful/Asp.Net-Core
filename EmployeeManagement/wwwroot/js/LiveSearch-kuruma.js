@@ -24,10 +24,9 @@ var ajaxLiveSearch_kuruma = function (id, reqUrl, cType, rUrl = "home/index/") {
                     }
                     else {
                         $(this).show();
+                        PopulationChart(res);
                     }
                 });
-
-                PopulationChart(res);
             },
             error: function () {
                 $(".fun-result").remove();

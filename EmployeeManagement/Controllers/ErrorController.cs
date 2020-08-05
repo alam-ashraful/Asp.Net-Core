@@ -44,8 +44,11 @@ namespace EmployeeManagement.Controllers
         {
             var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
 
-            logger.LogError($"The path {exceptionDetails.Path} threw an exception + " +
-                $"{exceptionDetails.Error}");
+            if (exceptionDetails != null)
+            {
+                logger.LogError($"The path {exceptionDetails.Path} threw an exception + " +
+                    $"{exceptionDetails.Error}");
+            }
 
             return View("Error");
         }

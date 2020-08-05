@@ -60,7 +60,10 @@ namespace EmployeeManagement.Controllers
             try
             {
                 var rs = _car.GetCars()
-                    .Where(x => x.Manufacturer.ToLower().Contains(nm.ToLower()) || x.Model.ToLower().Contains(nm.ToLower()))
+                    .Where(x => x.Manufacturer.ToLower().Contains(nm.ToLower())
+                        || x.Model.ToLower().Contains(nm.ToLower())
+                        || x.Year.ToLower().Contains(nm.ToLower()) 
+                        || x.ProducingCountry.ToLower().Contains(nm.ToLower()))
                     .Select(p => new
                     {
                         manufacturer = p.Manufacturer,
