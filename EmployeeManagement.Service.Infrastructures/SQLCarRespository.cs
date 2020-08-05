@@ -29,7 +29,15 @@ namespace EmployeeManagement.Service.Infrastructures
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var car = _appDbContext.Cars.Find(id);
+
+            if (car != null)
+            {
+                _appDbContext.Cars.Remove(car);
+                _appDbContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public Car GetCar(int id)
@@ -47,7 +55,11 @@ namespace EmployeeManagement.Service.Infrastructures
 
         public Car Update(Car obj)
         {
-            throw new NotImplementedException();
+            var car = _appDbContext.Cars.Attach(obj);
+            car.State = EntityState.Modified;
+            _appDbContext.SaveChanges();
+
+            return obj;
         }
     }
 }

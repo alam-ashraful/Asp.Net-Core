@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using EmployeeManagement.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
@@ -14,9 +15,11 @@ namespace EmployeeManagement.Controllers
     public class ApiController : ControllerBase
     {
         private readonly IEmployeeList _employeeList;
-        public ApiController(IEmployeeList employeeList)
+        private readonly ICar _car;
+        public ApiController(IEmployeeList employeeList, ICar car)
         {
             _employeeList = employeeList;
+            _car = car;
         }
 
         [HttpGet]
@@ -43,6 +46,31 @@ namespace EmployeeManagement.Controllers
                     })
                     .ToList();
                 return Ok(getResult);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Produces("application/json")]
+        [HttpGet("search-car/{nm}")]
+        public IActionResult SearchByCarDetails(string nm)
+        {
+            try
+            {
+                var rs = _car.GetCars()
+                    .Where(x => x.Manufacturer.ToLower().Contains(nm.ToLower()) || x.Model.ToLower().Contains(nm.ToLower()))
+                    .Select(p => new
+                    {
+                        manufacturer = p.Manufacturer,
+                        model = p.Model,
+                        year = p.Year,
+                        producingCountry = p.ProducingCountry,
+                        id = p.Id
+                    })
+                    .ToList();
+                return Ok(rs);
             }
             catch
             {

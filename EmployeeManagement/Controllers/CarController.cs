@@ -85,9 +85,48 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Car car = _car.GetCar(id);
+
+            if (car != null)
+            {
+                //CarViewModel carViewModel = new CarViewModel();
+                //carViewModel.Car = car;
+                //carViewModel.PageTitle = "Details view | Edit";
+                return View(car);
+            }
+
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Car obj)
+        {
+            //Car car = _car.GetCar(obj.Id);
+            //car.Manufacturer = obj.Manufacturer;
+            //car.Model = obj.Model;
+            //car.ProducingCountry = obj.ProducingCountry;
+            //car.Year = obj.Year;
+
+            _car.Update(obj);
+            return RedirectToAction("Details", new { id = obj.Id });
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            if (_car.Delete(id))
+            {
+                return RedirectToAction("index");
+            }
+            return RedirectToAction("Create");
+        }
+
+        [HttpGet]
         public JsonResult CarManufacturer()
         {
             return Json(_car.GetCars());
-        }
+        }        
     }
 }
