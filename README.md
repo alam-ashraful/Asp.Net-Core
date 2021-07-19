@@ -9,4 +9,4 @@ Followed by Onion structure, SOLID principles, Code-First method. Started from s
 </ul>
 
 <hr />
-Install the above services and clone this repository via git. <strong>git url: git@github.com:karl-ashraful/Asp.Net-Core.git</strong>
+Clone this repository. <strong>git url: git@github.com:karl-ashraful/Asp.Net-Core.git</strong>
